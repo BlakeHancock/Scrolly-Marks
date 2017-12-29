@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        form {
+            font-size: 1.25rem;
+        }
+        * {
+            box-sizing: border-box;
+        }
+        fieldset {
+            margin: 1rem 0;
+        }
+        p {
+            margin: 1rem 0;
+        }
+        form > :first-child,
+        fieldset > :first-child {
+            margin-top: 0;
+        }
+        form > :last-child,
+        fieldset > :last-child {
+            margin-bottom: 0;
+        }
+        input {
+            align-self: center;
+            margin: 0;
+        }
+        input[type=checkbox],
+        input[type=radio] {
+            margin-right: 0.5rem;
+        }
+        input[type=color] {
+            border: 0.0625rem solid gray;
+            padding: 0;
+            width: 5rem;
+            height: 2rem;
+        }
+        input[type=color]::-moz-color-swatch {
+            border: 0;
+        }
+        input[type=number] {
+            border: 0.0625rem solid gray;
+            width: 5rem;
+            height: 2rem;
+            padding: 0 0.25rem;
+            text-align: center !important;
+        }
+        textarea {
+            border: 0.0625rem solid gray;
+            padding: 0.25rem;
+            height: 8rem;            
+            flex-grow: 1;
+        }
+
+        label,
+        .label,
+        .shortcut__keys {
+            display: block;
+            align-self: center;
+            line-height: 2rem;
+            width: 12rem;
+            font-weight: normal;
+        }
+        label + input[type=checkbox],
+        label + input[type=radio] {
+            margin-left: 1.5rem;
+        }
+        .field_checkbox label,
+        .field_radio label {
+            width: auto;
+        }
+        .field_textarea label {
+            width: auto;
+            align-self: flex-start;
+        }
+
+        legend + * {
+            margin-top: 0 !important;
+        }
+
+        button {
+            border: 0.125rem solid black;
+            background: #FF6A00;
+            color: black;
+            height: 2.5rem;
+            line-height: 2.25rem;
+            width: 10rem;
+            font-size: 1.25rem;
+            text-align: center;
+            display: block;
+            margin: 1rem 0;
+        }    
+        button:focus,
+        button:hover {
+            background: black;
+            color: #FF6A00;
+        }
+
+
+        .field {
+            display: flex;
+            margin: 1rem 0 0 0;
+        }
+        .field_textarea {
+            flex-direction: column;
+        }
+        .field_value {
+            margin: 0;
+        }
+        .information {
+            margin: 0.25rem 0 2rem 0;
+        }        
+        .messages {
+            margin: 0 0 1rem 0;
+        }
+        .field_value + .messages {
+            margin-top: 1rem;
+        }
+        .information + .messages {
+            margin-top: -1rem;
+        }
+        .messages::after,
+        .messages::before {
+            content: "";
+            display: table;
+        }
+        .messages::after {
+            clear: both;
+        }
+        .message {
+            display: block;
+            float: left;
+            border-radius: 0.125rem;
+            padding: 0 0.5rem;
+            color: white;
+            margin: 0;
+            line-height: 2rem;
+            transition: opacity 150ms;
+        }
+        .message + * {
+            clear: left;
+        }
+        .message_success {
+            background: green;
+            color: white;
+        }
+        .message_error {
+            background: red;
+            color: white;
+        }
+
+        .hidden {
+            opacity: 0;
+        }
+    </style>
+</head>
+<body>
+    <form>
+        <fieldset>
+            <legend>Keyboard Shortcuts</legend>
+
+            <div class="field field_value">
+                <strong class="label">Toggle Scrollmark</strong>
+                <span class="shortcut">
+                    <span id="modifiers_add_text">Shift + Alt +</span> 0-9
+                </span>
+            </div>
+
+            <div class="field field_value">
+                <strong class="label">Scroll To Scrollmark</strong>
+                <span class="shortcut">
+                    <span id="modifiers_scroll_to_text">Alt +</span> 0-9
+                </span>
+            </div>
+            
+            <div class="field field_value">
+                <strong class="label">Cycle Scrollmarks</strong>
+                <span class="shortcut">
+                    <span id="modifiers_cycle_text">Alt +</span> Up or Down
+                </span>
+            </div>
+            
+            <div class="field field_value">
+                <strong class="label">Clear Scrollmarks</strong>
+                <span class="shortcut">
+                    <span id="modifiers_clear_text">Alt +</span> Del
+                </span>
+            </div>
+
+            <div class="messages">
+                <p class="message message_error hidden">
+                    Your 'toggle' and 'scroll to' modifiers cannot be the same.
+                </p>
+            </div>
+
+            <div class="field field_checkbox field_modifiers">
+                <strong class="label">Toggle Modifiers</strong>
+                
+                <input type="checkbox" value="1" id="modifier_add_ctrl">
+                <label for="modifier_add_ctrl">Ctrl</label>
+
+                <input type="checkbox" value="2" id="modifier_add_shift">
+                <label for="modifier_add_shift">Shift</label>
+
+                <input type="checkbox" value="4" id="modifier_add_alt">
+                <label for="modifier_add_alt">Alt</label>
+            </div>
+            <p class="information">
+                The combination of modifers you need to press to 
+                add  or remove a scrollmark.
+            </p>
+
+            <div class="field field_checkbox field_modifiers">
+                <strong class="label">Scroll To Modifiers</strong>
+                
+                <input type="checkbox" value="1" id="modifier_scroll_to_ctrl">
+                <label for="modifier_scroll_to_ctrl">Ctrl</label>
+
+                <input type="checkbox" value="2" id="modifier_scroll_to_shift">
+                <label for="modifier_scroll_to_shift">Shift</label>
+
+                <input type="checkbox" value="4" id="modifier_scroll_to_alt">
+                <label for="modifier_scroll_to_alt">Alt</label>
+            </div>
+            <p class="information">
+                The combination of modifers you need to press to 
+                scroll to a scrollmark.
+            </p>
+
+            <div class="field field_checkbox field_modifiers">
+                <strong class="label">Cycle Modifiers</strong>
+                
+                <input type="checkbox" value="1" id="modifier_cycle_ctrl">
+                <label for="modifier_cycle_ctrl">Ctrl</label>
+
+                <input type="checkbox" value="2" id="modifier_cycle_shift">
+                <label for="modifier_cycle_shift">Shift</label>
+
+                <input type="checkbox" value="4" id="modifier_cycle_alt">
+                <label for="modifier_cycle_alt">Alt</label>
+            </div>
+            <p class="information">
+                The combination of modifers you need to press to 
+                cycle through each scrollmark.
+            </p>
+
+            <div class="field field_checkbox field_modifiers">
+                <strong class="label">Clear Modifiers</strong>
+                
+                <input type="checkbox" value="1" id="modifier_clear_ctrl">
+                <label for="modifier_clear_ctrl">Ctrl</label>
+
+                <input type="checkbox" value="2" id="modifier_clear_shift">
+                <label for="modifier_clear_shift">Shift</label>
+
+                <input type="checkbox" value="4" id="modifier_clear_alt">
+                <label for="modifier_clear_alt">Alt</label>
+            </div>
+            <p class="information">
+                The combination of modifers you need to press to 
+                clear scrollmarks.
+            </p>
+
+            <div class="field field_checkbox">            
+                <input type="checkbox" id="reverse_cycle">
+                <label for="reverse_cycle">Reverse Cycle Order</label>
+            </div>
+            <p class="information">
+                This will swap the behaviour of the 'up' and 'down' 
+                keys when cycling through scrollmarks
+            </p>
+
+            <div class="field field_checkbox">
+                <input type="checkbox" id="disable_in_inputs">
+                <label for="disable_in_inputs">Disable In Inputs</label>
+            </div>
+            <p class="information">
+                This will prevent the hotkeys from working while a 
+                form input has focus.
+            </p>
+        </fieldset>
+
+        <fieldset>
+            <legend>Persistance</legend>
+
+            <div class="field field_checkbox">
+                <input type="checkbox" id="persist">
+                <label for="persist">Persist</label>
+            </div>
+            <p class="information">
+                This will restore your previous scrollmarks the next time you 
+                visit the same URL.
+            </p>
+
+            <div class="field field_textarea">
+                <label for="persist_blacklist">Blacklist</label>
+                <textarea id="persist_blacklist"></textarea>
+            </div>
+            <p class="information">
+                A list of partial URL strings separated by a semicolon. When
+                you visit a URL that contains any of these strings, any 
+                scrollmarks you add will not persist.
+            </p>
+        </fieldset>
+
+        <fieldset>
+            <legend>Markers</legend>    
+        
+            <div class="field field_checkbox">            
+                <input type="checkbox" id="show_markers">
+                <label for="show_markers">Show Markers</label>
+            </div>
+            <p class="information">
+                This will fix markers to the side of the page 
+                for each bookmark you add. Clicking on them will then 
+                bring you to that position.
+            </p>
+
+            <fieldset>
+                <legend>Colors</legend>
+
+                <div class="field field_color">
+                    <label for="marker_background_color">Background</label>
+                    <input type="color" id="marker_background_color">
+                </div>
+
+                <div class="field field_color">
+                    <label for="marker_color">Label</label>
+                    <input type="color" id="marker_color">
+                </div>
+
+                <div class="field field_color">
+                    <label for="marker_background_color_active">Active Background</label>
+                    <input type="color" id="marker_background_color_active">
+                </div>
+
+                <div class="field field_color">
+                    <label for="marker_color_active">Active Label</label>
+                    <input type="color" id="marker_color_active">
+                </div>
+            </fieldset>
+
+
+            <fieldset>
+                <legend>Size And Positioning</legend>
+
+                <div class="field field_number">
+                    <label for="marker_width">Marker Width (px)</label>
+                    <input type="number" step="1" min="1" id="marker_width">
+                </div>
+                <p class="information">
+                    Setting a width below 16 will cause the labels to not show.
+                </p>
+
+                <div class="field field_number">
+                    <label for="marker_height">Marker Height (px)</label>
+                    <input type="number" step="1" min="1" id="marker_height">
+                </div>
+                <p class="information">
+                    Setting a height below 16 will cause the labels to not show.
+                </p>
+
+                <div class="field field_radio">
+                    <strong class="label">Horizontal Position</strong>
+                    
+                    <input type="radio" name="position_x" id="marker_position_x_left">
+                    <label for="marker_position_x_left">Left</label>
+
+                    <input type="radio" name="position_x" id="marker_position_x_right">
+                    <label for="marker_position_x_right">Right</label>
+                </div>
+
+                <div class="field field_radio">
+                    <strong class="label">Vertical Position</strong>
+                    
+                    <input type="radio" name="position_y" id="marker_position_y_top">
+                    <label for="marker_position_y_top">Top</label>
+
+                    <input type="radio" name="position_y" id="marker_position_y_bottom">
+                    <label for="marker_position_y_bottom">Bottom</label>
+                </div>
+            </fieldset>
+
+            <div class="field field_number">
+                <label for="update_marker_delay">Update Deleay (ms)</label>
+                <input type="number" step="100" min="0" id="update_marker_delay">
+            </div>
+            <p class="information">
+                If you find on certain websites that your persisted markers 
+                appear normally for a split second and then dissapear or break, 
+                you can try increasing this value.
+            </p>
+        </fieldset>
+
+        <div class="field field_textarea">
+            <label for="blacklist">Blacklist</label>
+            <textarea id="blacklist"></textarea>
+        </div>
+        <p class="information">
+            A list of partial URL strings separated by a semicolon. When
+            you visit a URL that contains any of these strings, Scrolly 
+            Marks will be disabled preventing hotkey conflicts.
+        </p>
+
+        <div class="messages">
+            <p class="message message_success hidden">
+                Your options have been saved.
+            </p>
+
+            <p class="message message_error hidden">
+                Your 'toggle' and 'scroll to' modifiers cannot be the same.
+            </p>
+        </div>
+
+        <button type="submit">Save</button>
+    </form>
+    <script src="options.js"></script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+{
+    "manifest_version": 2,
+    "description": "Save your scroll position to a shortcut key so that you can jump around the page.",
+    "name": "Scrolly Marks",
+    "version": "1.0",
+    "icons": {
+        "48": "icons/scrolly-marks-48.png",
+        "96": "icons/scrolly-marks-96.png"
+    },
+    "content_scripts": [{
+        "matches": ["<all_urls>"],
+        "js": ["content.js"]
+    }],
+    "options_ui": {
+        "page": "options.html"
+    },
+    "permissions": ["storage"],
+    "background": {
+        "scripts": ["background.js"]
+    }
+}
