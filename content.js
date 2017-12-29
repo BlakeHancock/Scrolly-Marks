@@ -356,9 +356,9 @@ function updateMarkers () {
         return
     }
 
-    let maxBodyX = (document.body.offsetWidth - window.innerWidth + scrollbarXOffset()),
+    let maxBodyX = (getBodyWidth() - window.innerWidth + scrollbarXOffset()),
         maxViewX = (window.innerWidth - scrollbarXOffset()),
-        maxBodyY = (document.body.offsetHeight - window.innerHeight + scrollbarYOffset()),
+        maxBodyY = (getBodyHeight() - window.innerHeight + scrollbarYOffset()),
         maxViewY = (window.innerHeight - scrollbarYOffset())        
 
     Object.keys(marks).forEach(index => {
@@ -527,15 +527,41 @@ function makeMarker (index, x, y, w, h) {
     return e
 }
 
+function getBodyWidth()
+{
+    let style = document.body.style.width,
+        width
+
+    document.body.style.width = 'auto'
+
+    width = document.body.offsetWidth
+
+    document.body.style.width = style
+
+    return width
+}
+function getBodyHeight()
+{
+    let style = document.body.style.height,
+        height
+
+    document.body.style.height = 'auto'
+
+    height = document.body.offsetHeight
+
+    document.body.style.height = style
+
+    return height
+}
 function scrollbarYOffset() {
-    if (document.body.offsetWidth > window.innerWidth) {
+    if (getBodyWidth() > window.innerWidth) {
         return SCROLLBAR_WIDTH
     }
 
     return 0
 }
 function scrollbarXOffset() {
-    if (document.body.offsetHeight > window.innerHeight) {
+    if (getBodyHeight() > window.innerHeight) {
         return SCROLLBAR_WIDTH
     }
 
