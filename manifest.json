@@ -17,5 +17,11 @@
     "permissions": ["storage"],
     "background": {
         "scripts": ["background.js"]
+    },
+    "applications": {
+        "gecko": {
+            "id": "scrolly-marks@torology.com",
+            "strict_min_version": "50.0"
+        }
     }
 }

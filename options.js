@@ -251,8 +251,21 @@ function updateModifierState () {
         })
     }
 
-    document.getElementById('modifiers_add_text').innerHTML = getModifierText('add')
-    document.getElementById('modifiers_scroll_to_text').innerHTML = getModifierText('scroll_to')
-    document.getElementById('modifiers_cycle_text').innerHTML = getModifierText('cycle')
-    document.getElementById('modifiers_clear_text').innerHTML = getModifierText('clear')
+    updateModifierText('add')
+    updateModifierText('scroll_to')
+    updateModifierText('cycle')
+    updateModifierText('clear')
+}
+
+function updateModifierText (name) {
+    let e = document.getElementById('modifiers_' + name + '_text'),
+        children
+        
+
+    children = e.childNodes
+    for (let i = 0; i < children.length; ++i) {
+        e.removeChild(children[i])
+    }
+
+    e.appendChild(document.createTextNode(getModifierText(name)))
 }

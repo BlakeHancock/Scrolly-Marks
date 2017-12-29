@@ -449,7 +449,7 @@ function updateMarkers () {
 function makeMarker (index, x, y, w, h) {
     let e = document.createElement('div')
        
-    e.innerHTML = index  
+    e.appendChild(document.createTextNode(index))
 
     e.classList.add('scrolly-mark')
     
